@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "assesment2_rayan",
+    "password": "Rayan@2000",
+    "database": "assesment2_rayan",
+    "host": "db4free.net",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
