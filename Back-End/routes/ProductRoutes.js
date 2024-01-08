@@ -1,39 +1,34 @@
 import express from "express";
 import {
-  createTransaction,
-  // getTransaction,
-  getTransactions,
-  deleteTransaction,
-  updateTransaction,
-  getTransactionsByCategory,
-  getTransByType,
-  getTransactionsByDate,
+  
+  getProductById,
+  deleteProduct,
+  updateProduct,
+  addProduct,
+  getAllProducts,
+  
 } from "../controller/productControler.js";
 
 const productRoute = express.Router();
 
 // GET all transactions
-productRoute.post("/view-all", getTransactions);
+productRoute.post("/view-all", getAllProducts);
 
 // GET transactions by categoryID
 productRoute.post(
-  "/view-by-category/",
-  getTransactionsByCategory
+  "/viewOne/:id",
+  getProductById
 );
 
-// GET transactions by date
-productRoute.post("/view-by-date", getTransactionsByDate);
 
-// GET transactions by type
-productRoute.post("/view-by-type", getTransByType);
 
 // POST a new transaction
-productRoute.post("/add", createTransaction);
+productRoute.post("/add", addProduct);
 
 // DELETE a transaction
-productRoute.delete("/delete", deleteTransaction);
+productRoute.delete("/delete", deleteProduct);
 
 // UPDATE a transaction
-productRoute.patch("/edit", updateTransaction);
+productRoute.patch("/edit", updateProduct);
 
 export default productRoute;

@@ -8,13 +8,12 @@ import {
   login,
   logout
 } from "../controller/userControler.js";
-import { upload } from "../middlewares/upload.js";
-import { authenticateUser, authorizeUser , loggedInUser } from "../middlewares/auth.js";
+import { authenticateUser, authorizeUser  } from "../middlewares/auth.js";
 
 const userRoutes = express.Router();
 
 // Create a user
-userRoutes.post("/create", upload.single("image"), createUser);
+userRoutes.post("/create",createUser);
 
 // Show all users
 userRoutes.get(
@@ -28,7 +27,7 @@ userRoutes.get(
 userRoutes.get("/user", showOneUser);
 
 // Update a user
-userRoutes.patch("/update", upload.single("image"), updateUser);
+userRoutes.patch("/update",updateUser);
 
 // Delete a user
 userRoutes.delete("/delete", deleteUser);

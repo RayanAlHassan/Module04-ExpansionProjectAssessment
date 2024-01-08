@@ -4,23 +4,19 @@ import fs from 'fs/promises'
 const { UserModel } = db
 
 export const createUser = async (req, res) => {
-    const { firstName, lastName, dob, email, password, role } = req.body
-    const image = req.file?.path
+    const { firstName, lastName, email, password, role } = req.body
 
     const hashedPassword = await hashPassword(password);
-    if (!firstName || !lastName || !dob || !email || !password || !role)
+    if (!firstName || !lastName  || !email || !password || !role)
         return res.status(400).send('All fields are required!')
-    if(!req.file) {
-        return res.status(400).json({error : "Please upload an image"})
-    }
+  
     try {
         const newUser = await UserModel.create({
             firstName,
             lastName,
-            dob,
+            
             email,
             password: hashedPassword,
-            image,
             role
         })
         if (newUser)
@@ -62,17 +58,15 @@ export const showOneUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     const id = req.body.id;
-    const { firstName, lastName, dob, email, password, role } = req.body;
-    const newImage = req.file?.path;
+    const { firstName, lastName, email, password, role } = req.body;
 
-    if (!firstName || !lastName || !dob || !email || !password || !role) {
+    if (!firstName || !lastName || !email || !password || !role) {
         res.status(400).send('All fields are required!');
         return;
     }
 
     try {
         const user = await UserModel.findOne({ where: { id: id } });
-        const oldImage = user.image;
 
         if (!user) {
             res.status(404).send(`User ${id} does not exist!`);
@@ -83,19 +77,16 @@ export const updateUser = async (req, res) => {
             {
                 firstName,
                 lastName,
-                dob,
+        
                 email,
                 password,
-                image: newImage,
                 role
             },
             {
                 where: { id: id }
             }
         ); 
-        if (req.file) {
-            await fs.unlink(oldImage);
-        }
+      
         res.status(200).send(`User ${user.firstName} has been updated successfully!`);
     } catch (error) {
         res.status(500).send(error);
